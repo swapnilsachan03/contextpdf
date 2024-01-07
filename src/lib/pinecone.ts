@@ -1,4 +1,4 @@
-import { Pinecone, PineconeRecord, utils } from "@pinecone-database/pinecone"
+import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone"
 import { PDFLoader } from "langchain/document_loaders/fs/pdf"
 import { Document, RecursiveCharacterTextSplitter } from "@pinecone-database/doc-splitter"
 import md5 from "md5"

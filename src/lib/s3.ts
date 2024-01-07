@@ -15,7 +15,7 @@ export async function uploadToS3 (file: File) {
       region: 'ap-south-1'
     });
 
-    const file_key = 'uploads/' + Date.now().toString() + file.name.replace(' ', '-');
+    const file_key = 'uploads/' + Date.now().toString() + file.name.replaceAll(' ', '-');
 
     const params = {
       Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
