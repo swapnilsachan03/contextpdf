@@ -1,12 +1,16 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
 
+import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from 'react-hot-toast'
+
+import Providers from '@/components/providers'
+
+import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'ContextPDF',
-  description: 'Made with love by Swapnil Sachan using Next.js',
+  description: 'Made with love using Next.js',
 }
 
 export default function RootLayout({
@@ -16,9 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <Providers>
+        <html lang="en">
+          <body className={inter.className}> {children} </body>
+          <Toaster />
+        </html>
+      </Providers>
     </ClerkProvider>
   )
 }

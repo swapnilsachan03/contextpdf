@@ -23,7 +23,7 @@ export default async function Home() {
             </div>
           )}
 
-          <p className="max-w-xl mt-4 text-lg leading-6 text-slate-600"> 
+          <p className="max-w-xl mt-4 text-lg leading-6 text-zinc-800"> 
             Join millions of students, researchers and professionals to instantly answer questions and understand research with AI
           </p>
 
@@ -42,7 +42,9 @@ export default async function Home() {
         </div>
       </div>
 
-      <h1 className="text-xl font-semibold absolute top-6 left-6"> ContextPDF </h1>
+      <Link href="/" className="text-xl font-semibold absolute top-6 left-6">
+        <h1> ContextPDF </h1>
+      </Link>
 
       <div className="absolute top-6 right-6">
         <UserButton afterSignOutUrl="/" />
