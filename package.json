@@ -20,6 +20,7 @@
     "@types/node": "20.10.4",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.17",
+    "ai": "^2.2.31",
     "autoprefixer": "10.4.16",
     "aws-sdk": "^2.1531.0",
     "axios": "^1.6.4",
