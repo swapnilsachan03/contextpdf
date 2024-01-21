@@ -10,7 +10,7 @@ const MessageList = ({ messages }: Props) => {
   if (!messages) return <></>
 
   return (
-    <div className='flex flex-col gap-2 px-4 pb-2'>
+    <div className='flex flex-col flex-grow gap-2 px-4 pb-2'>
       { messages.map(message => {
         return (
           <div
@@ -23,8 +23,8 @@ const MessageList = ({ messages }: Props) => {
             <div className={
               cn (
                 'rounded-lg px-3 text-sm py-2 shadow-md ring-1 ring-gray-800/10', {
-                'bg-cyan-600 text-white': message.role === 'user',
-                'bg-teal-600 text-white': message.role === 'assistant'
+                'bg-sky-600 text-white': message.role === 'user',
+                'bg-emerald-500 text-white': message.role === 'assistant'
               }
             )}>
               <p className='leading-[22px]'> {message.content} </p>

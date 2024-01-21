@@ -7,15 +7,31 @@ import { Button } from './ui/button'
 import { SendIcon } from 'lucide-react'
 import MessageList from './message_list'
 
-type Props = {}
+type Props = { chatId: number }
 
-const ChatComponent = (props: Props) => {
+const ChatComponent = ({ chatId }: Props) => {
   const { input, handleInputChange, handleSubmit, messages } = useChat({
-    api: '/api/chat'
+    api: '/api/chat',
+    body: {
+      chatId
+    }
   })
 
+  React.useEffect(() => {
+    const messagesContainer = document.getElementById('messages-container');
+    if (messagesContainer) {
+      messagesContainer.scrollTo({
+        top: messagesContainer.scrollHeight,
+        behavior: 'smooth'
+      })
+    }
+  }, [messages])
+
   return (
-    <div className='relative max-h-screen overflow-auto'>
+    <div
+      className='flex flex-col relative h-screen overflow-auto'
+      id='message-conainer'
+    >
       <div className='sticky top-0 inset-x-0 p-4 bg-white h-fit'>
         <h3 className='text-xl font-bold'>
           Chat

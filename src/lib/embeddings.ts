@@ -10,7 +10,7 @@ export default async function getEmbeddings (text: string) {
   try {
     const response = await openai.createEmbedding({
       model: 'text-embedding-ada-002',
-      input: text.replace(/\n/g, ' ')
+      input: text.replaceAll(/\n/g, ' '),
     })
 
     const result = await response.json()
