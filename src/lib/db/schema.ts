@@ -1,6 +1,6 @@
 import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 
-export const userSystemEnum = pgEnum('user_system_enum', ['admin', 'user'])
+export const userSystemEnum = pgEnum('user_system_enum', ['system', 'user'])
 
 export const chats = pgTable('chats', {
   id: serial('id').primaryKey(),

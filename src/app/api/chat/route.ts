@@ -3,7 +3,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai"
 import { Message } from "ai/react"
 import { getContext } from "@/lib/context"
 import { db } from "@/lib/db"
-import { chats } from "@/lib/db/schema"
+import { chats, messages as _messages } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
 import { NextResponse } from "next/server"
 
@@ -45,8 +45,6 @@ export async function POST (req: Request) {
       `,
     }
 
-    console.log('prompt', prompt)
-
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -56,7 +54,28 @@ export async function POST (req: Request) {
       stream: true
     })
 
-    const stream = OpenAIStream(response)
+    const stream = OpenAIStream(response, {
+      onStart: async () => {
+        // save user's message into the DB
+
+        await db.insert(_messages).values({
+          chatId,
+          content: lastMessage.content,
+          role: 'user'
+        })
+      },
+
+      onCompletion: async (completion) => {
+        // save AI response into DB
+
+        await db.insert(_messages).values({
+          chatId,
+          content: completion,
+          role: 'system'
+        })
+      }
+    })
+
     return new StreamingTextResponse(stream)
   } catch (error) {
     

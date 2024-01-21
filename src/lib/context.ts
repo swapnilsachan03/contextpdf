@@ -3,22 +3,19 @@ import { convertToAscii } from "./utils";
 import getEmbeddings from "./embeddings";
 
 export async function getMatchesWithEmbeddings (embeddings: number[], fileKey: string) {
-  const pinecone = new Pinecone({
-    apiKey: process.env.PINECONE_API_KEY!,
-    environment: process.env.PINECONE_ENVIRONMENT!
-  });
-
-  const index = await pinecone.Index('contextpdf');
-
   try {
-    const namespace = convertToAscii(fileKey);
-    const queryResult = await index.query({
+    const pinecone = new Pinecone({
+      apiKey: process.env.PINECONE_API_KEY!,
+      environment: process.env.PINECONE_ENVIRONMENT!
+    });
+  
+    const index = await pinecone.index('contextpdf');
+    const namespace = index.namespace(convertToAscii(fileKey));
+
+    const queryResult = await namespace.query({
       topK: 5,
       vector: embeddings,
-      includeMetadata: true,
-      filter: {
-        namespace
-      }
+      includeMetadata: true
     })
 
     return queryResult.matches || []

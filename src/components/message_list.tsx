@@ -1,12 +1,22 @@
 import { cn } from '@/lib/utils'
 import { Message } from 'ai/react'
+import { Loader2 } from 'lucide-react'
 import React from 'react'
 
 type Props = {
+  isLoading: boolean
   messages: Message[]
 }
 
-const MessageList = ({ messages }: Props) => {
+const MessageList = ({ isLoading, messages }: Props) => {
+  if (isLoading) {
+    return (
+      <div className='flex flex-col flex-grow items-center justify-center'>
+        <Loader2 className='w-6 h-6 animate-spin' />
+      </div>
+    )
+  }
+
   if (!messages) return <></>
 
   return (
@@ -24,7 +34,7 @@ const MessageList = ({ messages }: Props) => {
               cn (
                 'rounded-lg px-3 text-sm py-2 shadow-md ring-1 ring-gray-800/10', {
                 'bg-sky-600 text-white': message.role === 'user',
-                'bg-emerald-500 text-white': message.role === 'assistant'
+                'bg-emerald-600/80 text-white shadow-lg': message.role === 'assistant' || message.role === 'system'
               }
             )}>
               <p className='leading-[22px]'> {message.content} </p>
