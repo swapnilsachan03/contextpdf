@@ -39,7 +39,7 @@ export async function loadS3InToPinecone (file_key: string) {
     throw new Error("Error getting file from Amazon S3");
   }
 
-  const loader = new PDFLoader(file_name);
+  const loader = new PDFLoader(file_name as string);
   const pages = (await loader.load()) as PDFPage[];
 
   // 2. Split & segment the PDF -> split into small pages
