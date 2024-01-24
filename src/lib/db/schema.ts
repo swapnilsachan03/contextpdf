@@ -1,6 +1,6 @@
 import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 
-export const userSystemEnum = pgEnum('user_system_enum', ['system', 'user'])
+export const userSystemEnum = pgEnum('user_system_enum', ['assistant', 'user'])
 
 export const chats = pgTable('chats', {
   id: serial('id').primaryKey(),
@@ -19,4 +19,13 @@ export const messages = pgTable('messages', {
   content: text('content').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   role: userSystemEnum('role').notNull(),
+})
+
+export const userSubscriptions = pgTable('user_subscriptions', {
+  id: serial('id').primaryKey(),
+  userId: varchar('user_id', { length: 256 }).notNull().unique(),
+  stripeCustomerId: varchar('stripe_customer_id', { length: 256 }).notNull().unique(),
+  stripeSubscriptionId: varchar('stripe_subscription_id', { length: 256 }).unique(),
+  stripePriceId: varchar('stripe_price_id', { length: 256 }),
+  stripeCurrentPeriodEnd: timestamp('stripe_current_period_end')
 })
