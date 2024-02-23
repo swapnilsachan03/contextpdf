@@ -21,8 +21,6 @@ const ChatComponent = ({ chatId }: Props) => {
         chatId
       })
 
-      console.log(response)
-
       return response.data
     }
   })

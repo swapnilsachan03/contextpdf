@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import { Message } from 'ai/react'
 import { Loader2 } from 'lucide-react'
 import React from 'react'
+import Markdown from 'react-markdown'
 
 type Props = {
   isLoading: boolean
@@ -22,6 +23,9 @@ const MessageList = ({ isLoading, messages }: Props) => {
   return (
     <div className='flex flex-col flex-grow gap-2 px-4 pb-2'>
       { messages.map(message => {
+        const markdown = message.content
+        console.log(markdown, '\n')
+        
         return (
           <div
             key={message.id}
@@ -37,7 +41,9 @@ const MessageList = ({ isLoading, messages }: Props) => {
                 'bg-emerald-600/80 text-white shadow-lg': message.role === 'assistant' || message.role === 'system'
               }
             )}>
-              <p className='leading-[22px]'> {message.content} </p>
+              <p className='leading-[22px]'>
+                <Markdown>{message.content}</Markdown>
+              </p>
             </div>
           </div>
         )
